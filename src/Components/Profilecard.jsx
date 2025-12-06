@@ -205,7 +205,7 @@ const Profilecard = ({ title, role, descrp, image, index }) => {
               >
                 <motion.a
                   className='text-green'
-                  href="google.com"
+                  href="http://linkedin.com/in/mustafashoukat/"
                   whileHover={{
                     scale: 1.2,
                     rotate: 360,
@@ -220,7 +220,7 @@ const Profilecard = ({ title, role, descrp, image, index }) => {
                 </motion.a>
                 <motion.a
                   className='text-green'
-                  href="#"
+                  href="https://github.com/Mustafa-Shoukat1"
                   whileHover={{
                     scale: 1.2,
                     rotate: 360,

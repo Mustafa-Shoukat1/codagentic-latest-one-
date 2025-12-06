@@ -288,7 +288,10 @@ const Contact = () => {
                 className="space-y-4 mt-6"
               >
                 <p className="text-sm text-gray-300">Branches</p>
-                <motion.p
+                <motion.a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch1Address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{
                     opacity: 1,
@@ -299,11 +302,14 @@ const Contact = () => {
                       ease: [0.23, 1, 0.32, 1],
                     },
                   }}
-                  className="text-sm flex items-center gap-2 text-gray-400"
+                  className="text-sm flex items-center gap-2 text-gray-400 hover:underline"
                 >
                   <MapPin className="text-green" size={18} /> {branch1Address}
-                </motion.p>
-                <motion.p
+                </motion.a>
+                <motion.a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch2Address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{
                     opacity: 1,
@@ -314,10 +320,10 @@ const Contact = () => {
                       ease: [0.23, 1, 0.32, 1],
                     },
                   }}
-                  className="text-sm flex items-center gap-2 text-gray-400"
+                  className="text-sm flex items-center gap-2 text-gray-400 hover:underline"
                 >
                   <MapPin className="text-green" size={18} /> {branch2Address}
-                </motion.p>
+                </motion.a>
               </motion.div>
             </motion.div>
           </motion.div>
