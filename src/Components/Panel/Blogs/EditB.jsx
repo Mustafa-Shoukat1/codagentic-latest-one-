@@ -1,194 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from 'axios'
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import JoditEditor from 'jodit-react';
 
-const EditF = ({ setCurrentindex, setError, fid }) => {
+const EditB = ({ title, setCurrentindex, setError, error }) => {
     const url = import.meta.env.VITE_SERVER;
-    const [title, setTitle] = useState('');
-    const [role, setRole] = useState('');
-    const [descrp, setDescrp] = useState('');
-    const [image, setImage] = useState('');
-    const [linkedin, setLinkedin] = useState('');
-    const [github, setGithub] = useState('');
+    const editor = useRef(null);
+    const [content, setContent] = useState('Loading...');
+    const [post, setPost] = useState({ title: 'Loading...', discription: 'Loading...', author: '', image: 'Loading...', content: 'Loading...' });
+    const [ctitle, setCtitle] = useState(post.title);
+    const [discription, setDiscription] = useState(post.discription);
+    const [image, setImage] = useState(post.image);
+    const [author, setAuthor] = useState(post.author)
     const [uploading, setUploading] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [data, setData] = useState({});
 
-    const handleImageChange = async (e) => {
+    const editorConfig = useMemo(() => {
+        return {
+            minHeight: 700,
+            readonly: false,
+        };
+    }, []);
+
+    const getdata = (title) => {
+        axios.post(`${url}/Tblog`, { title })
+            .then((res) => {
+                const post = res.data.post;
+                setPost(post);
+                setContent(post.content);
+                setCtitle(post.title);
+                setImage(post.image);
+                setAuthor(post.author)
+                setDiscription(post.discription);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        getdata(title);
+    }, [title]);
+
+    const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('upload_preset', 'ml_default');
+        formData.append('upload_preset', 'ml_default'); // <-- Replace this
         setUploading(true);
 
         try {
-            const res = await axios.post('https://api.cloudinary.com/v1_1/dxrfayus8/image/upload', formData);
+            const res = await axios.post('https://api.cloudinary.com/v1_1/dxrfayus8/image/upload', formData); // <-- Replace this
             setImage(res.data.secure_url);
             setError('Image uploaded successfully');
             setTimeout(() => setError(''), 3000);
         } catch (err) {
+            console.error("Cloudinary Upload Error", err);
             setError('Image upload failed');
         } finally {
             setUploading(false);
         }
     };
 
-    const getdata = async (id) => {
-        try {
-            const res = await axios.post(`${url}/getfounder`, { id });
-            const founder = res.data;
-
-            setData(founder);
-            setTitle(founder.title || '');
-            setRole(founder.role || '');
-            setDescrp(founder.descrp || '');
-            setImage(founder.image || '');
-            setLinkedin(founder.linkedin || '');   // ← load
-            setGithub(founder.github || '');       // ← load
-        } catch (error) {
-            setError('Failed to load founder data');
-        }
-    };
-
-    useEffect(() => {
-        if (fid) getdata(fid);
-    }, [fid]);
-
-    const handleSubmit = async (e) => {
+    const handelsubmit = (e) => {
         e.preventDefault();
-        setDisabled(true);
-        setError('');
-
-        try {
-            const response = await axios.post(`${url}/upfounder`, {
-                id: data._id,
-                title,
-                role,
-                descrp,
-                image,
-                linkedin,   // ← send to backend
-                github      // ← send to backend
-            });
-
-            if (response.status === 200) {
-                setError('Founder updated successfully!');
-                setTimeout(() => setCurrentindex('founder'), 1000);
-            }
-        } catch (err) {
-            setError(err.response?.data?.message || 'Update failed');
-        } finally {
-            setDisabled(false);
-        }
+        axios.put(`${url}/upblog`, { title, ctitle, discription, author, image, content })
+            .then(() => {
+                setError('Changes Saved');
+                setCurrentindex("blog");
+                setTimeout(() => setError(''), 3000);
+            })
+            .catch(error => console.log(error));
     };
 
     return (
-        <div className="px-4 py-10 font-Poppins w-full mx-auto max-w-6xl">
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-                {/* Left: Text Fields */}
-                <div className="lg:col-span-2 space-y-6">
-                    <h2 className="text-3xl font-bold text-white">Edit Founder</h2>
-
-                    <div>
-                        <label className="block mb-2 text-lg text-gray-300">Name (HTML allowed)</label>
-                        <input
-                            type="text"
-                            required
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder='Mustafa <span class="text-white">Shoukat</span>'
-                            className="w-full bg-white/10 border border-gray-600 text-white p-3 rounded-lg"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block mb-2 text-lg text-gray-300">Role</label>
-                        <input
-                            type="text"
-                            required
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                            placeholder="Co-founder & AI Engineer"
-                            className="w-full bg-white/10 border border-gray-600 text-white p-3 rounded-lg"
-                        />
-                    </div>
-
-                    {/* LinkedIn & GitHub Links */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block mb-2 text-lg text-gray-300">LinkedIn URL</label>
-                            <input
-                                type="url"
-                                value={linkedin}
-                                onChange={(e) => setLinkedin(e.target.value)}
-                                placeholder="https://linkedin.com/in/username"
-                                className="w-full bg-white/10 border border-gray-600 text-white p-3 rounded-lg"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-2 text-lg text-gray-300">GitHub URL (optional)</label>
-                            <input
-                                type="url"
-                                value={github}
-                                onChange={(e) => setGithub(e.target.value)}
-                                placeholder="https://github.com/username"
-                                className="w-full bg-white/10 border border-gray-600 text-white p-3 rounded-lg"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label className="block mb-2 text-lg text-gray-300">Description</label>
-                        <textarea
-                            required
-                            rows={5}
-                            value={descrp}
-                            onChange={(e) => setDescrp(e.target.value)}
-                            placeholder="Short bio..."
-                            className="w-full bg-white/10 border border-gray-600 text-white p-3 rounded-lg resize-none"
+        <div className="px-4 py-10 font-Poppins w-full mx-auto">
+            <form onSubmit={handelsubmit} className='grid grid-cols-3 gap-4'>
+                <div className='col-span-2'>
+                    <label className='text-xl'>Edit Blog</label>
+                    <div className='text-black min-h-screen'>
+                        <JoditEditor
+                            ref={editor}
+                            config={editorConfig}
+                            value={content}
+                            onBlur={newContent => setContent(newContent)}
+                            onChange={newContent => setContent(newContent)}
                         />
                     </div>
                 </div>
 
-                {/* Right: Image + Submit */}
-                <div className="space-y-6">
-                    <div className="text-center">
-                        <img
-                            src={image || 'https://placehold.co/400x400?text=Founder'}
-                            alt="Preview"
-                            className="mx-auto rounded-full size-64 object-cover border-4 border-green/50 shadow-2xl"
-                        />
-                    </div>
+                <div className='flex flex-col-reverse max-w-[400px] w-full justify-end gap-14'>
+                    <label className='text-xl text-red-500'>{error}</label>
+                    <input type="submit" value='Save Changes' className='w-full text-white rounded-md h-[50px] bg-blue-600 text-lg' />
 
-                    <div>
-                        <label className="block text-lg text-gray-300 mb-2">Upload New Image</label>
+                    <div className='flex flex-col gap-4'>
+                        <label className='text-xl'>Description</label>
+                        <textarea value={discription} onChange={(e) => setDiscription(e.target.value)} required placeholder='Description' className='w-full h-[80px] text-lg border-[1px] border-gray-500 p-2'></textarea>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                        <label className="text-lg">Author:</label>
                         <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className="w-full file:mr-4 file:py-3 file:px-6 file:rounded-full file:border-0 file:bg-green file:text-black file:font-semibold hover:file:bg-green/80 cursor-pointer"
+                            value={author}
+                            onChange={(e) => setAuthor(e.target.value)}
+                            required
+                            type="text"
+                            placeholder="Author Name"
+                            className="w-full h-[40px] text-sm border-[1px] border-gray-500 p-2"
                         />
-                        {uploading && <p className="text-yellow-400 mt-2">Uploading image...</p>}
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={disabled || uploading}
-                        className="w-full bg-green hover:bg-green/90 text-black font-bold text-xl py-4 rounded-xl disabled:opacity-50 transition"
-                    >
-                        {disabled ? 'Saving...' : 'Update Founder'}
-                    </button>
+                    <div className='flex flex-col gap-4'>
+                        <label className='text-xl'>Title</label>
+                        <input value={ctitle} onChange={(e) => setCtitle(e.target.value)} required type="text" placeholder='Title' className='w-full h-[40px] text-lg border-[1px] border-gray-500 p-2' />
+                    </div>
 
-                    {error && (
-                        <p className={`text-center text-lg ${error.includes('success') ? 'text-green' : 'text-red-500'}`}>
-                            {error}
-                        </p>
-                    )}
+                    <div className='space-y-4'>
+                        <div>
+                            <img src={image ? image : 'https://placehold.co/400'} className='w-full h-[200px] object-cover rounded-md' alt="" />
+                        </div>
+
+                        <label className='text-sm'>Upload Image</label>
+                        <input type="file" accept='image/*' onChange={handleImageUpload} className='w-full h-[40px] text-sm border-[1px] border-gray-500 p-2' />
+                        {uploading && <p className="text-sm text-blue-600">Uploading image...</p>}
+                    </div>
                 </div>
             </form>
         </div>
     );
 };
 
-export default EditF;
+export default EditB;
