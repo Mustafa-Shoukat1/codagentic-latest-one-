@@ -10,38 +10,49 @@ import "swiper/css/navigation";
 import { useNavigate } from 'react-router';
 
 import { Navigation } from 'swiper/modules';
-const blog = () => {
+const BlogPost = () => {
   const navigate = useNavigate();
 
   const url = import.meta.env.VITE_SERVER;
   const { title } = useParams();
+  const decodedTitle = decodeURIComponent(title || '');
   const [data, setData] = useState([])
   
   const [post, setPost] = useState({ title: 'Loading...', discription: 'Loading...', author:'', image: 'Loading...', content: 'Loading...' });
 
   const getdata = (title) => {
+    if (!title) return;
     axios.post(`${url}/Tblog`, { title })
       .then((res) => {
-        const post = res.data.post;
-        setPost(post);
+        if (res.data.post) {
+          setPost(res.data.post);
+        } else {
+          setPost({ title: "Post not found", content: "Sorry, this blog post doesn't exist." });
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setPost({ title: "Error loading post", content: "Something went wrong." });
+      });
   };
   const getdata2 = async () => {
-
-
     try {
       const res = await axios.get(`${url}/blog`);
-      setData(res.data.post)
+      console.log("All blogs response:", res.data); // Check this!
 
+      // Safe extraction
+      setData(res.data.posts || res.data.post || res.data.data || res.data || []);
     } catch (error) {
-      console.error('Error fetching post:', error);
+      console.error('Error fetching blogs:', error);
+      setData([]);
     }
   };
   useEffect(() => {
-    getdata(title);
-    getdata2()
-  }, [title]);
+    if (decodedTitle) {
+      getdata(decodedTitle);
+      getdata2();
+    }
+  }, [decodedTitle]);
   const handleRedirect = (title) => {
     const encodedTitle = encodeURIComponent(title); // Handles spaces/special characters
     navigate(`/blog/${encodedTitle}`);
@@ -146,4 +157,4 @@ const blog = () => {
   )
 }
 
-export default blog
+export default BlogPost

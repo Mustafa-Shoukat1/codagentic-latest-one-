@@ -3,7 +3,7 @@ import {  Routes, Route } from 'react-router'
 import Main from './Components/Main'
 import Panel from './Components/Panel/Panel'
 import Login from './Components/Login'
-import Blog from './Components/Blog/blog'
+import BlogPost from './Components/Blog/blogPost'
 import { Adminchk } from './Components/Protectedroutes'
 // import { useLocation } from 'react-router';
 // import NProgress from 'nprogress';
@@ -39,7 +39,7 @@ const App = () => {
           <Route path="/Panel" element={
             <Adminchk />
           } />
-          <Route path="/blog/:title" element={<Blog />} />
+          <Route path="/blog/:title" element={<BlogPost />} />  {/* ← Use BlogPost */}
         </Routes>
 
 

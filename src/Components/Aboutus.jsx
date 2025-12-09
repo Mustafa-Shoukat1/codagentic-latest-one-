@@ -27,10 +27,12 @@ const Aboutus = () => {
             descrp={'Mustafa is an AI engineer and Co-founder of CodAgentic, bringing four years of hands-on experience in generative AI and business automation.'}
           />
           <Profilecard
-            title={'Gulenoor <span class="text-white">Khalid</span>'}
-            role={'Co-founder '}
-            image={'https://placehold.co/200x200'}
-            descrp={'Gulenoor Khalid, our Co-founder and Generative AI expert. Her commitment to transforming businesses through AI automation is at the heart of everything we do at CodAgentic.'}
+            title={founder.title}
+            role={founder.role}
+            descrp={founder.descrp}
+            image={founder.image}
+            linkedin={founder.linkedin}    // ← now comes from DB
+            github={founder.github}        // ← optional
           />
         </div>
       </div>
