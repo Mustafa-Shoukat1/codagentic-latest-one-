@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* 1. Google Search Console - Already correct */}
-        <meta name="google-site-verification" content="gTmNTeNp3OBAn-7AXm3kPr0KcSc8Yl3zUU7KBnCiBhA" />
+        <meta name="google-site-verification" content="FvBVoYW2W_XGy4BSmTcpjspPq6x4A4qH_AwHDm4NRfo" />
         {/* 2. Google Tag Manager - Head part (correct placement) */}
         <script
           dangerouslySetInnerHTML={{
