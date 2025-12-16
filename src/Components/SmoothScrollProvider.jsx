@@ -3,6 +3,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useEffect } from "react";
+import { slowTimeout } from "../animationConfig";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,7 +53,7 @@ const SmoothScrollProvider = ({ children }) => {
           lenis.velocity *= 4.2;
           setTimeout(() => {
             lenis.velocity = 0;
-          }, 2000);
+          }, slowTimeout(2000));
         };
 
         window.addEventListener('touchstart', handleTouchStart, { passive: true });
@@ -83,7 +84,7 @@ const SmoothScrollProvider = ({ children }) => {
         setTimeout(() => {
           lenis.resize();
           ScrollTrigger.refresh(true);
-        }, 500);
+        }, slowTimeout(500));
       });
 
       const raf = (time) => {
@@ -96,7 +97,7 @@ const SmoothScrollProvider = ({ children }) => {
       setTimeout(() => {
         lenis.resize();
         ScrollTrigger.refresh(true);
-      }, 1000);
+      }, slowTimeout(1000));
     };
 
     // Initialize after slight delay
@@ -106,7 +107,7 @@ const SmoothScrollProvider = ({ children }) => {
       } else {
         window.addEventListener("load", initLenis);
       }
-    }, 500);
+    }, slowTimeout(500));
 
     return () => {
       clearTimeout(initTimeout);

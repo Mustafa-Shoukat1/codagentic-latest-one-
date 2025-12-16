@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { slowDuration, slowTimeout } from '../animationConfig';
 import { MoveRight } from 'lucide-react'
 import Word from './Word';
 import nohand from '../assets/images/logo_C.png'
@@ -88,9 +89,9 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
                     } else {
                         console.log('Welcome: startAutoScroll function is not available');
                     }
-                }, 4000); // Start auto-scroll 4 seconds after scrolling to first section
-            }, 500); // Small delay to ensure welcome animation completes
-        }, 1000);
+                }, slowTimeout(4000)); // Start auto-scroll 4 seconds after scrolling to first section
+            }, slowTimeout(500)); // Small delay to ensure welcome animation completes
+        }, slowTimeout(1000));
     };
 
     useEffect(() => {
@@ -103,7 +104,7 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
                 document.documentElement.style.height = '100vh';
                 document.body.style.touchAction = 'none';
                 document.documentElement.style.touchAction = 'none';
-            }, 1000)
+            }, slowTimeout(1000))
         } else {
             // Restore scrolling
             setTimeout(() => {
@@ -113,7 +114,7 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
                 document.documentElement.style.height = 'auto';
                 document.body.style.touchAction = 'auto';
                 document.documentElement.style.touchAction = 'auto';
-            }, 1000); // Delay matches animation exit duration
+            }, slowTimeout(1000)); // Delay matches animation exit duration
         }
     }, [isVisible]);
 
@@ -126,8 +127,8 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
                     className=" h-screen w-full absolute space-y-7 top-0 !z-[999] flex flex-col items-center justify-center  bg-[#000b1b]  text-white"
                     initial={{ opacity: 1, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    exit={{ scale: 0.8, opacity: 0, transition: { duration: 2 } }}
-                    transition={{ duration: 1, ease: "easeInOut" }}
+                    exit={{ scale: 0.8, opacity: 0, transition: { duration: slowDuration(2) } }}
+                    transition={{ duration: slowDuration(1), ease: "easeInOut" }}
                 >
 
                     <div
@@ -144,7 +145,7 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
                     <motion.button
                         initial={{ translateY: 100, opacity: 0 }}
                         animate={{ translateY: 0, opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                        transition={{ duration: slowDuration(0.5), delay: slowDuration(0.2), ease: "easeOut" }}
                         className="px-8 flex group translate-y-32 hover:scale-105 items-center gap-3 py-2 text-lg border transition-all duration-700 ease-in-out !border-green rounded-full hover:bg-gradient-to-tl from-[#00ffffa6] from-10% to-[#2eafff] "
                         whileHover={{ scale: 1.01 }}
                         onClick={handleStart}

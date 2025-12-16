@@ -27,9 +27,9 @@ const Clients = ({data}) => {
       {
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 3.6,
         ease: "power3.out",
-        stagger: 0.05,
+        stagger: 0.16,
         scrollTrigger: {
           trigger: titleRef.current,
           start: "top 80%",
@@ -48,7 +48,7 @@ const Clients = ({data}) => {
 
         <motion.div
           ref={(el) => (cardRefs.current[index] = el)}
-          transition={{ duration: 1, delay: index * 0.2 }}
+          transition={{ duration: 3.0, delay: index * 0.6 }}
           // Add 'card' class for CSS targeting
           className={` ${styles} relative flex-col mx-auto md:h-[300px] lg:h-[400px] pb-2 rounded-3xl  w-full h-full font-Raleway  cursor-grab shadow-md shadow-black  flex   items-center md:justify-around justify-center gap-4 backdrop-blur-sm  `}
         >
@@ -64,7 +64,7 @@ const Clients = ({data}) => {
                   opacity: 1, 
                   y: 0,
                   transition: {
-                    duration: 0.6,
+                    duration: 2.0,
                     ease: [0.23, 1, 0.32, 1]
                   }
                 }}
@@ -78,8 +78,8 @@ const Clients = ({data}) => {
                   opacity: 1, 
                   y: 0,
                   transition: {
-                    duration: 0.6,
-                    delay: 0.1,
+                    duration: 2.0,
+                    delay: 0.35,
                     ease: [0.23, 1, 0.32, 1]
                   }
                 }}
@@ -100,8 +100,8 @@ const Clients = ({data}) => {
                   y: 0, 
                   scaleX: 1,
                   transition: {
-                    duration: 0.8,
-                    delay: 0.2,
+                    duration: 3.2,
+                    delay: 0.6,
                     ease: [0.23, 1, 0.32, 1]
                   }
                 }}

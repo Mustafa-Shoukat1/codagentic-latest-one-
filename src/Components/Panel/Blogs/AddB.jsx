@@ -1,5 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
 import axios from 'axios';
+import { slowTimeout } from '../../../animationConfig';
 import JoditEditor from 'jodit-react';
 
 const AddB = ({ setCurrentindex, setError, error }) => {
@@ -31,7 +32,7 @@ const AddB = ({ setCurrentindex, setError, error }) => {
             const res = await axios.post('https://api.cloudinary.com/v1_1/dxrfayus8/image/upload', formData);
             setImage(res.data.secure_url);
             setError('Image uploaded');
-            setTimeout(() => setError(''), 3000);
+            setTimeout(() => setError(''), slowTimeout(3000));
         } catch (err) {
             console.error('Image Upload Error', err);
             setError('Image upload failed');
@@ -46,13 +47,13 @@ const AddB = ({ setCurrentindex, setError, error }) => {
         axios.post(`${url}/addblog`, { title, discription,author, image, content })
             .then(response => {
                 setError('Blog Added');
-                setTimeout(() => setError(''), 3000);
+                setTimeout(() => setError(''), slowTimeout(3000));
                 setCurrentindex('blog');
             })
             .catch(error => {
                 console.error(error);
                 setError('Server Error');
-                setTimeout(() => setError(''), 3000);
+                setTimeout(() => setError(''), slowTimeout(3000));
             })
             .finally(() => {
                 setDisabled(false);

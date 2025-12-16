@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { slowTimeout } from '../../../animationConfig';
 import JoditEditor from 'jodit-react';
 
 const EditB = ({ title, setCurrentindex, setError, error }) => {
@@ -51,7 +52,7 @@ const EditB = ({ title, setCurrentindex, setError, error }) => {
             const res = await axios.post('https://api.cloudinary.com/v1_1/dxrfayus8/image/upload', formData); // <-- Replace this
             setImage(res.data.secure_url);
             setError('Image uploaded successfully');
-            setTimeout(() => setError(''), 3000);
+            setTimeout(() => setError(''), slowTimeout(3000));
         } catch (err) {
             console.error("Cloudinary Upload Error", err);
             setError('Image upload failed');
@@ -66,7 +67,7 @@ const EditB = ({ title, setCurrentindex, setError, error }) => {
             .then(() => {
                 setError('Changes Saved');
                 setCurrentindex("blog");
-                setTimeout(() => setError(''), 3000);
+                setTimeout(() => setError(''), slowTimeout(3000));
             })
             .catch(error => console.log(error));
     };

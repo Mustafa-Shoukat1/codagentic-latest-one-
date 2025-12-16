@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { slowDuration } from "../animationConfig";
 
-const DURATION = 0.25;
-const STAGGER = 0.15;
-const DELAY = 2; // 10-second delay between animations
+const DURATION = slowDuration(0.8);
+const STAGGER = slowDuration(0.35);
+const DELAY = slowDuration(8); // scaled delay between animation cycles
 
 const Word = ({ children }) => {
   const ref = useRef(null);

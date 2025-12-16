@@ -17,12 +17,15 @@ const Footer = () => {
         trigger: ".Footer",
         start: "top 90%",
         end: "top 40%",
-        scrub: 2,
+        scrub: 1,
       },
     });
 
     tl.from(".heading", {
-      translateY: 0,
+      translateY: 80,
+      opacity: 0,
+      duration: 2.4,
+      ease: "power2.out"
     });
   }, []);
   const handleClick = () => {
@@ -51,7 +54,7 @@ const Footer = () => {
           <span><span className="text-xs text-green">CEO-FOUNDER</span> MUSTAFA SHOUKAT</span>
 
         </p>
-        <div className="flex items-center gap-3 justify-center flex-wrap ">
+        {/* <div className="flex items-center gap-3 justify-center flex-wrap ">
 
           <p className="text-xs text-green "> Designed by </p>
           <a
@@ -62,7 +65,7 @@ const Footer = () => {
             <Word>Maryam</Word> <Word>Fatima</Word>{" "}
             <span className="text-xs">From CODAGENTIC</span>
           </a>
-        </div>
+        </div> */}
       </div>
 
       <div

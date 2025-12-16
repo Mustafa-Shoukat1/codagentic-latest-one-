@@ -5,6 +5,7 @@ import Card from "./InCard";
 import { useGSAP } from "@gsap/react";
 import Profilecard from "./Profilecard";
 import { motion } from "framer-motion";
+import { slowDuration, slowTimeout } from "../animationConfig";
 import Word from "./Word";
 import Believe from "./Believe";
 import Client from "./Clients";
@@ -351,10 +352,10 @@ const ScrollFixedAnimation = ({ data, data4 }) => {
       });
     };
 
-    const timer = setTimeout(initializeCards, 200);
+    const timer = setTimeout(initializeCards, slowTimeout(200));
 
     const handleLoad = () => {
-      setTimeout(initializeCards, 200);
+      setTimeout(initializeCards, slowTimeout(200));
     };
 
     if (document.readyState === "complete") {
@@ -402,7 +403,7 @@ const ScrollFixedAnimation = ({ data, data4 }) => {
             initial={{ y: 100, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.6 }}
+            transition={{ delay: slowDuration(0.5), duration: slowDuration(0.6) }}
             className="text-5xl text-center flex  items-center  justify-center gap-2 font-poppins lg:text-7xl leading-tight tracking-wide"
           >
             <h1 className="drtitle flex items-center  justify-center gap-4 flex-wrap">
@@ -418,7 +419,7 @@ const ScrollFixedAnimation = ({ data, data4 }) => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.6 }}
+            transition={{ delay: slowDuration(0.5), duration: slowDuration(0.6) }}
             className="mt-2 lg:mt-4 drtitle font-Raleway text-center translate-y-14 text-sm px-4 md:text-lg lg:text-xl font-light text-gray-200"
           >
             Redefining Business Excellence, where AI Meets Business
@@ -444,7 +445,7 @@ const ScrollFixedAnimation = ({ data, data4 }) => {
             <motion.h1
               initial={{ y: -50, rotateX: 60, opacity: 0 }}
               whileInView={{ y: 0, rotateX: 0, opacity: 1 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: slowDuration(0.4) }}
               className="Intitle text-2xl px-2 text-center md:text-2xl lg:text-5xl md:w-1/2"
             >
               AI <span className="text-green">Solutions</span> Across <br />{" "}

@@ -40,9 +40,9 @@ const navigate = useNavigate();
       {
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 3.6,
         ease: "power3.out",
-        stagger: 0.05,
+        stagger: 0.16,
         scrollTrigger: {
           trigger: titleRef.current,
           start: "top 80%",
@@ -189,7 +189,7 @@ return (
                       opacity: 1, 
                       scale: 1,
                       transition: {
-                        duration: 0.6,
+                        duration: 2.0,
                         ease: [0.23, 1, 0.32, 1]
                       }
                     }}
@@ -202,7 +202,7 @@ return (
                       whileInView={{ 
                         scale: 1,
                         transition: {
-                          duration: 0.8,
+                          duration: 2.4,
                           ease: [0.23, 1, 0.32, 1]
                         }
                       }}
@@ -223,8 +223,8 @@ return (
                           opacity: 1, 
                           y: 0,
                           transition: {
-                            duration: 0.6,
-                            delay: 0.1,
+                              duration: 2.0,
+                              delay: 0.2,
                             ease: [0.23, 1, 0.32, 1]
                           }
                         }}
@@ -246,8 +246,8 @@ return (
                           opacity: 1, 
                           y: 0,
                           transition: {
-                            duration: 0.6,
-                            delay: 0.2,
+                            duration: 2.0,
+                            delay: 0.3,
                             ease: [0.23, 1, 0.32, 1]
                           }
                         }}
@@ -274,8 +274,8 @@ return (
                           y: 0,
                           scaleX: 1,
                           transition: {
-                            duration: 0.8,
-                            delay: 0.3,
+                            duration: 3.2,
+                            delay: 0.6,
                             ease: [0.23, 1, 0.32, 1]
                           }
                         }}

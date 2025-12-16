@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { motion } from 'framer-motion';
+import { slowDuration, slowTimeout } from '../animationConfig';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -148,7 +149,7 @@ const Navigation = () => {
         // Refresh ScrollTrigger after scroll
         setTimeout(() => {
           ScrollTrigger.refresh();
-        }, 100);
+        }, slowTimeout(100));
       }
     });
 
@@ -175,13 +176,13 @@ const Navigation = () => {
           className="flex flex-col gap-6"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: slowDuration(0.5), delay: slowDuration(0.2) }}
         >
           {sections.map(({ id, label, elementSelector }) => (
             <motion.li 
               key={id}
               whileHover={{ x: -10 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: slowDuration(0.2) }}
             >
               <button
                 onClick={() => handleNavigation(id, elementSelector)}

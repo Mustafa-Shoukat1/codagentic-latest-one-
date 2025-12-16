@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import { slowTimeout } from '../../animationConfig';
 import { useNavigate } from 'react-router'
 
 const Setting = ({ setCurrentindex, admin }) => {
@@ -62,7 +63,7 @@ const Setting = ({ setCurrentindex, admin }) => {
                     localStorage.removeItem('token')
                     navi('/Login')
 
-                }, 3000);
+                }, slowTimeout(3000));
             })
             .catch((err) => {
                 console.log(err)
@@ -79,7 +80,7 @@ const Setting = ({ setCurrentindex, admin }) => {
                     localStorage.removeItem('token')
                     navi('/Login')
 
-                }, 3000);
+                }, slowTimeout(3000));
             })
             .catch((err) => {
                 console.log(err)
@@ -89,7 +90,7 @@ const Setting = ({ setCurrentindex, admin }) => {
                     setError('')
                     // navi('/Login')
 
-                }, 3000);
+                }, slowTimeout(3000));
             })
 
     }

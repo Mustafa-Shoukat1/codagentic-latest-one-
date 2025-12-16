@@ -49,7 +49,7 @@ const About = () => {
 
       tl.to(textRefs.current[index], {
         opacity: 1,
-        duration: 0.8,
+        duration: 2.4,
         ease: "power2.out",
         onStart: () => setActiveIndex(index)
       })
@@ -61,11 +61,11 @@ const About = () => {
         scale: 1,
         filter: "blur(0px)",
         stagger: {
-          amount: 1.5, 
+          amount: 4.4, 
           from: "start",
           ease: "power2.out"
         },
-        duration: 1.5,
+        duration: 4.4,
         ease: "back.out(1.2)"
       })
       
@@ -76,13 +76,13 @@ const About = () => {
         scale: 0.9,
         filter: "blur(4px)",
         stagger: {
-          amount: 0.8,
+          amount: 2.6,
           from: "end",
           ease: "power2.in"
         },
-        duration: 1.2,
+        duration: 3.6,
         ease: "power2.inOut"
-      }, "+=1.0"); 
+      }, "+=3.0"); 
     });
   }, []);
 

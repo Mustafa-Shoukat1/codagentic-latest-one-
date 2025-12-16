@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { slowDuration } from "../animationConfig";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -59,7 +60,7 @@ const Contact = () => {
           initial={{ opacity: 0 }}
           whileInView={{
             opacity: 1,
-            transition: { duration: 0.6, delay: 0.2 },
+            transition: { duration: slowDuration(0.6), delay: slowDuration(0.2) },
           }}
           className="  xl:w-3/4 md:w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 backdrop-blur-xl md:backdrop-blur-[2px] shadow-2xl shadow-black bg-[#0000000a] px-4 py-2   xl:p-8 rounded-xl"
         >
@@ -67,7 +68,7 @@ const Contact = () => {
             initial={{ x: 50 }}
             whileInView={{ x: 0 }}
             viewport={{ once: false }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: slowDuration(1), delay: slowDuration(0.2) }}
             className="lg:py-0 md:py-10"
           >
             <motion.h3
@@ -76,7 +77,7 @@ const Contact = () => {
                 opacity: 1,
                 y: 0,
                 transition: {
-                  duration: 0.6,
+                  duration: slowDuration(0.6),
                   ease: [0.23, 1, 0.32, 1],
                 },
               }}
@@ -90,8 +91,8 @@ const Contact = () => {
                 opacity: 1,
                 y: 0,
                 transition: {
-                  duration: 0.6,
-                  delay: 0.1,
+                  duration: slowDuration(0.6),
+                  delay: slowDuration(0.1),
                   ease: [0.23, 1, 0.32, 1],
                 },
               }}
@@ -105,11 +106,11 @@ const Contact = () => {
               whileInView={{
                 opacity: 1,
                 y: 0,
-                transition: {
-                  duration: 0.6,
-                  delay: 0.2,
-                  ease: [0.23, 1, 0.32, 1],
-                },
+                  transition: {
+                    duration: slowDuration(0.6),
+                    delay: slowDuration(0.2),
+                    ease: [0.23, 1, 0.32, 1],
+                  },
               }}
               className="text-gray-300 text-xs lg:mt-4 mt-2"
             >
@@ -127,10 +128,10 @@ const Contact = () => {
                 opacity: 1,
                 y: 0,
                 transition: {
-                  duration: 0.8,
-                  delay: 0.3,
-                  ease: [0.23, 1, 0.32, 1],
-                },
+                      duration: slowDuration(0.8),
+                      delay: slowDuration(0.3),
+                      ease: [0.23, 1, 0.32, 1],
+                    },
               }}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -140,8 +141,8 @@ const Contact = () => {
                     opacity: 1,
                     x: 0,
                     transition: {
-                      duration: 0.6,
-                      delay: 0.4,
+                      duration: slowDuration(0.6),
+                      delay: slowDuration(0.4),
                       ease: [0.23, 1, 0.32, 1],
                     },
                   }}
@@ -165,8 +166,8 @@ const Contact = () => {
                     opacity: 1,
                     x: 0,
                     transition: {
-                      duration: 0.6,
-                      delay: 0.5,
+                      duration: slowDuration(0.6),
+                      delay: slowDuration(0.5),
                       ease: [0.23, 1, 0.32, 1],
                     },
                   }}
@@ -190,8 +191,8 @@ const Contact = () => {
                   opacity: 1,
                   y: 0,
                   transition: {
-                    duration: 0.6,
-                    delay: 0.6,
+                    duration: slowDuration(0.6),
+                    delay: slowDuration(0.6),
                     ease: [0.23, 1, 0.32, 1],
                   },
                 }}
@@ -214,7 +215,7 @@ const Contact = () => {
             initial={{ x: -50 }}
             whileInView={{ x: 0 }}
             viewport={{ once: false }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: slowDuration(1), delay: slowDuration(0.2) }}
             className="flex flex-wrap  flex-col justify-center"
           >
             <motion.p
@@ -359,8 +360,8 @@ const Contact = () => {
                 opacity: 1,
                 y: 0,
                 transition: {
-                  duration: 0.6,
-                  delay: 0.7,
+                  duration: slowDuration(0.6),
+                  delay: slowDuration(0.7),
                   ease: [0.23, 1, 0.32, 1],
                 },
               }}

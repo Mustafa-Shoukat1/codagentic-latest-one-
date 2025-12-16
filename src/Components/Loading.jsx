@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { slowDuration, slowInterval } from "../animationConfig";
 import Welcome from "./Welcome";
 import Word from './Word'
 const DualLoader = ({ load1 = 0, togglePlay }) => {
@@ -23,7 +24,7 @@ const DualLoader = ({ load1 = 0, togglePlay }) => {
         }
         return prev + 10;
       });
-    }, 500);
+    }, slowInterval(500));
 
 
   }, [load1]);
@@ -37,13 +38,13 @@ const DualLoader = ({ load1 = 0, togglePlay }) => {
 
         initial={{ opacity: 1, scale: 1 }}
         animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, transition: { duration: 0.1 } }}
-        transition={{ duration: 1, ease: "easeInOut" }}
+        exit={{ opacity: 0, transition: { duration: slowDuration(0.1) } }}
+        transition={{ duration: slowDuration(1), ease: "easeInOut" }}
         className="absolute inset-0 bg-[#00327c2d] backdrop-blur-2xl flex-col h-screen flex items-center justify-center text-white text-4xl !z-[1000]">
         <motion.img
 
           exit={{ opacity: 0, scale: 0.5, rotate: 180 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: slowDuration(0.5), ease: "easeInOut" }}
           src="/loader2.gif"
           className="opacity-80"
           alt="Loading..."
@@ -57,7 +58,7 @@ const DualLoader = ({ load1 = 0, togglePlay }) => {
             className="h-full bg-green rounded-full "
             initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            transition={{ duration: slowDuration(0.5), ease: "easeInOut" }}
           />
         </div>
       </motion.div>

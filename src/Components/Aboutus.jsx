@@ -16,7 +16,7 @@ const Aboutus = () => {
   return (
     <>
       <div id='about' className='container mx-auto space-y-24 py-28 my-[15vh] md:my-0 min-h-screen   mb-0 px-4 md:px-0'>
-        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1, transition: { duration: 0.5, delay: 0.1 } }} className='font-Raleway text-center my-20 text-2xl md:text-4xl text-white leading-relaxed uppercase  xl:w-3/4 md:w-full mx-auto'>
+        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1, transition: { duration: slowDuration(0.5), delay: slowDuration(0.1) } }} className='font-Raleway text-center my-20 text-2xl md:text-4xl text-white leading-relaxed uppercase  xl:w-3/4 md:w-full mx-auto'>
           Meet the <span className='text-green  font-Raleway'>Brains</span> behind the <span className='text-white font-Raleway'>Innovation</span>  <span className='text-green font-Raleway'>at <Word>CODAGENTIC</Word></span>
         </motion.p>
         <div className='flex gap-10 items-center justify-center flex-wrap'>
