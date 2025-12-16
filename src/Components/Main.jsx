@@ -4,6 +4,14 @@ import Hero from "./Hero";
 import Navbar from "./Navbar";
 import CustomScrollbar from "./CustomScrollbar";
 import { gsap } from "gsap";
+import {
+  GSAP_TIME_SCALE,
+  AUTO_SCROLL_DELTA,
+  AUTO_SCROLL_INTERVAL,
+  POLL_INTERVAL,
+  slowTimeout,
+  slowDuration,
+} from "../animationConfig";
 import SmoothScrollProvider from "./SmoothScrollProvider";
 import Welcome from "./Welcome";
 import Background from "./Background";
@@ -27,6 +35,13 @@ const debounce = (func, delay) => {
 };
 
 const Main = () => {
+  // Apply global GSAP slowdown
+  try {
+    gsap.globalTimeline.timeScale(GSAP_TIME_SCALE);
+  } catch (e) {
+    // ignore if gsap not ready
+    // console.warn('Could not set GSAP timeScale', e);
+  }
   const audioRef = useRef(new Audio(music));
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -58,7 +73,7 @@ const Main = () => {
           // Moving, update last position
           lastScrollPosRef.current = currentScroll;
         }
-      }, 100);
+        }, POLL_INTERVAL);
     } else {
       // Stop stuck detection
       if (stuckCheckIntervalRef.current) {
@@ -111,10 +126,10 @@ const Main = () => {
         stopAutoScrollInterval();
       } else {
         // Continue scrolling - INCREASED SPEED HERE
-        window.scrollBy(0, 15); // Increased from 15 to 30 pixels per interval
-        console.log("Scrolled by 30px, new position:", window.pageYOffset);
+        window.scrollBy(0, AUTO_SCROLL_DELTA);
+        console.log(`Auto-scrolled by ${AUTO_SCROLL_DELTA}px, new position:`, window.pageYOffset);
       }
-    }, 25); // Decreased from 30ms to 5ms interval = ~200fps - MUCH FASTER
+    }, AUTO_SCROLL_INTERVAL);
 
     scrollIntervalRef.current = interval;
   };
@@ -125,7 +140,7 @@ const Main = () => {
     window.scrollTo(0, 0);
     setTimeout(() => {
       startAutoScrollInterval();
-    }, 500);
+    }, slowTimeout(500));
   };
 
   useEffect(() => {
@@ -238,7 +253,7 @@ const Main = () => {
       // Start auto scroll after 3 seconds
       setTimeout(() => {
         startAutoScrollInterval();
-      }, 5000);
+      }, slowTimeout(5000));
     } else {
       // Stop audio when showwell is true
       gsap.to(audio, {
@@ -408,7 +423,7 @@ const Main = () => {
                 <Lightbulb size={20} />
               ) : (
                 <>
-                  Got an idea? Let's chat
+                  Got an idea?  chat
                   <MoveRight className="group-hover:translate-x-2 transition" size={18} />
                 </>
               )}
@@ -434,7 +449,7 @@ const Main = () => {
                   isAutoScrolling
                     ? {
                         scale: [1, 1.08, 1],
-                        transition: { duration: 1.5, repeat: Infinity },
+                        transition: { duration: slowDuration(1.5), repeat: Infinity },
                       }
                     : {}
                 }

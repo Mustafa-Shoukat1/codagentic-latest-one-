@@ -85,10 +85,10 @@ const Service = ({ data2, leng }) => {
         trigger: '.Service',
         // pin: true,
         start: "top top",
-        scrub: 2,
+        scrub: 1,
         snap: {
           snapTo: "labelsDirectional",
-          duration: { min: 0.2, max: 0.5 },
+          duration: { min: 0.8, max: 1.6 },
           ease: "power1.inOut",
           inertia: false
         },
@@ -105,19 +105,19 @@ const Service = ({ data2, leng }) => {
         opacity: 0,
         y: 15,
         ease: "power2.inOut",
-        duration: 0.25
+        duration: 1.2
       }, `section${i}`)
         .to(".service-text h2", {
           opacity: 0,
           y: 15,
           ease: "power2.inOut",
-          duration: 0.25
+          duration: 1.2
         }, `section${i}`)
         .to(".service-text p", {
           opacity: 0,
           y: 15,
           ease: "power2.inOut",
-          duration: 0.25
+          duration: 1.2
         }, `section${i}`)
         .to('.networks', {
           rotationZ: -15,
@@ -125,7 +125,7 @@ const Service = ({ data2, leng }) => {
           rotationY: 25,
           scale: 0.95,
           opacity: 0,
-          duration: 0.25,
+          duration: 1.2,
           ease: "power2.inOut"
         }, `section${i}`)
 
@@ -141,13 +141,13 @@ const Service = ({ data2, leng }) => {
             scale: 0.95,
             opacity: 0
           },
-          {
+            {
             rotationZ: 0,
             rotationX: 0,
             rotationY: 0,
             scale: 1,
             opacity: 1,
-            duration: 0.35,
+            duration: 1.6,
             ease: "power2.out"
           }
         )
@@ -159,9 +159,9 @@ const Service = ({ data2, leng }) => {
           {
             opacity: 1,
             y: 0,
-            duration: 0.35,
+            duration: 1.6,
             ease: "power2.out",
-            stagger: 0.08
+            stagger: 0.4
           },
           "<"
         );

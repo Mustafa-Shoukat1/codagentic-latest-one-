@@ -6,6 +6,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { MoveRight } from "lucide-react";
+import { slowDuration, slowTimeout } from "../animationConfig";
 
 // PERFECT HERO BACKGROUND - EXACT MATCH TO MAIN SITE + MOUSE PARALLAX
 // Enhanced 3D Logo with breathing + hover
@@ -61,7 +62,7 @@ const AILogo3D = ({ mouseX, mouseY, isHovering }) => {
             ? "brightness(1.4) saturate(1.6) drop-shadow(0 0 50px rgba(0,191,255,0.9))"
             : "brightness(1.1) saturate(1.2) drop-shadow(0 0 25px rgba(0,191,255,0.5))",
         }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: slowDuration(1.5) }}
       />
     </motion.div>
   );
@@ -117,9 +118,9 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
         // Start auto-scroll after smooth scroll completes
         setTimeout(() => {
           startAutoScroll?.();
-        }, 4000);
-      }, 600);
-    }, 1600); // Matches your exit animation duration
+        }, slowTimeout(4000));
+      }, slowTimeout(600));
+    }, slowTimeout(1600)); // Matches your exit animation duration
   };
 
   useEffect(() => {
@@ -145,26 +146,30 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
           exit={{ 
             opacity: 0, 
             scale: 0.92,
-            transition: { duration: 1.6, ease: "easeInOut" }
+            transition: { duration: slowDuration(1.6), ease: "easeInOut" }
           }}
         >
           {/* Video Background */}
-          <div className="fixed inset-0 -z-20 overflow-hidden">
+          <div className="fixed inset-0 -z-20 overflow-hidden bg-black">
             <video
               src="/bg4.mp4"
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               className="w-full h-full object-cover object-bottom"
               style={{ opacity: 0.9 }}
-              ref={(el) => {
-                if (el) el.playbackRate = 0.5;
+              onLoadedData={(e) => {
+                e.target.playbackRate = 0.5;
+                e.target.play().catch(err => console.log("Video autoplay failed:", err));
+              }}
+              onError={(e) => {
+                console.error("Video failed to load:", e);
               }}
             />
             <div className="absolute inset-0 bg-black/40 pointer-events-none" />
           </div>
-
           {/* Mouse Glow */}
           <motion.div
             className="pointer-events-none fixed inset-0 z-20"
@@ -182,7 +187,7 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
               onHoverEnd={() => setIsLogoHovering(false)}
               initial={{ y: -120, opacity: 0, rotate: -15 }}
               animate={{ y: 0, opacity: 1, rotate: 0 }}
-              transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
+              transition={{ duration: slowDuration(1.8), ease: "easeOut", delay: slowDuration(0.3) }}
             >
               <AILogo3D mouseX={mouseX} mouseY={mouseY} isHovering={isLogoHovering} />
             </motion.div>
@@ -191,7 +196,7 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
             <motion.div
               initial={{ y: 80, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1.6, delay: 0.8, ease: "easeOut" }}
+              transition={{ duration: slowDuration(1.6), delay: slowDuration(0.8), ease: "easeOut" }}
               className="space-y-8"
             >
               <div className="h-1 w-64 md:w-96 mx-auto bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80" />
@@ -204,7 +209,7 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
             <motion.button
               initial={{ y: 120, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1.4, delay: 1.6, ease: "easeOut" }}
+              transition={{ duration: slowDuration(1.4), delay: slowDuration(1.6), ease: "easeOut" }}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleStart}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { slowTimeout } from '../../../animationConfig';
 
 const AddF = ({ setCurrentindex, setError, error }) => {
     const url = import.meta.env.VITE_SERVER;
@@ -23,7 +24,7 @@ const AddF = ({ setCurrentindex, setError, error }) => {
             const res = await axios.post('https://api.cloudinary.com/v1_1/dxrfayus8/image/upload', formData);
             setImage(res.data.secure_url);
             setError('Image uploaded');
-            setTimeout(() => setError(''), 3000);
+            setTimeout(() => setError(''), slowTimeout(3000));
         } catch (err) {
             console.error('Image Upload Error', err);
             setError('Image upload failed');
@@ -38,12 +39,12 @@ const AddF = ({ setCurrentindex, setError, error }) => {
         axios.post(`${url}/addfounder`, { title, role, image, descrp })
             .then(response => {
                 setError('Founder Added');
-                setTimeout(() => setError(''), 3000);
+                setTimeout(() => setError(''), slowTimeout(3000));
                 setCurrentindex('founder');
             })
             .catch(error => {
                 console.error(error);
-                setTimeout(() => setError(''), 3000);
+                setTimeout(() => setError(''), slowTimeout(3000));
             })
             .finally(() => {
                 setDisabled(false);

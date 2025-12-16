@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import logo from "";
 import { motion, AnimatePresence } from "framer-motion";
+import { slowDuration, slowTimeout, POLL_INTERVAL } from "../animationConfig";
 import SoundWave from "./SoundWave";
 import {
   House,
@@ -67,7 +68,7 @@ const Navbar = ({
       setSelectedOption(sectionId);
       setTimeout(() => {
         setIsScrolling(false);
-      }, 800);
+      }, slowTimeout(800));
       return;
     }
     if (sectionId === "service") {
@@ -88,14 +89,13 @@ const Navbar = ({
           });
           setTimeout(() => {
             setIsScrolling(false);
-            
-          }, 1000);
+          }, slowTimeout(1000));
         }
-      }, 100);
+      }, POLL_INTERVAL);
       setTimeout(() => {
         clearInterval(checkScroll);
         setIsScrolling(false);
-      }, 5000);
+      }, slowTimeout(5000));
     } else   if (sectionId === "industries") {
       const additionalScroll = window.innerHeight * 2.5;
       const initialScroll = window.pageYOffset;
@@ -114,20 +114,20 @@ const Navbar = ({
           });
           setTimeout(() => {
             setIsScrolling(false);
-          }, 1000);
+          }, slowTimeout(1000));
         }
-      }, 100);
+      }, POLL_INTERVAL);
       setTimeout(() => {
         clearInterval(checkScroll);
         setIsScrolling(false);
-      }, 5000);
+      }, slowTimeout(5000));
     }  
     else {
       section.scrollIntoView({ behavior: "smooth" });
       setSelectedOption(sectionId);
       setTimeout(() => {
         setIsScrolling(false);
-      }, 800);
+      }, slowTimeout(800));
     }
   };
 
@@ -141,11 +141,11 @@ const Navbar = ({
           type: "spring",
           stiffness: 500,
           damping: 20,
-          duration: 0.3,
+          duration: slowDuration(0.3),
         }}
         className="relative md:fixed top-2 left-0 z-[999] flex items-center justify-between w-full px-2 md:px-10"
       >
-        <a href="/" className="w-[150px] text-white text-3xl lg:w-[200px]">
+        <a href="/" className="w-[180px] text-white text-3xl lg:w-[250px]">
           <img className="object-cover" src={"/logo.png"} alt="logo" />
                 {/* <h1>{isScrolling ? "Scrolling..." : "Not scrolling"}</h1> */}
 
@@ -164,7 +164,7 @@ const Navbar = ({
             type: "spring",
             stiffness: 500,
             damping: 20,
-            duration: 0.3,
+            duration: slowDuration(0.3),
           }}
           key="nav-list"
           className={`hidden ${

@@ -33,10 +33,10 @@ const Believe = () => {
       scale: 1,
       y: 0,
       filter: "blur(0px)",
-      duration: 1.8,
+      duration: 5.0,
       ease: "back.out(1.2)", // Much softer ease
       stagger: {
-        amount: 1.2, // Smoother stagger timing
+        amount: 4.0, // Much slower stagger timing
         ease: "power2.out"
       },
       scrollTrigger: {

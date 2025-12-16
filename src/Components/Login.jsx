@@ -1,5 +1,6 @@
 import { useState } from "react";
 import React from "react";
+import { slowTimeout } from '../animationConfig';
 
 import axios from 'axios'
 
@@ -41,7 +42,7 @@ const Login = () => {
                     setTimeout(() => {
                         setError('')
 
-                    }, 2000);
+                    }, slowTimeout(2000));
                 } else if (result.data.email === email) {
                     console.log(result)
 
@@ -51,7 +52,7 @@ const Login = () => {
                     setError('Internal Server Error !')
                     setTimeout(() => {
                         setError('')
-                    }, 2000);
+                    }, slowTimeout(2000));
                     console.log(result)
 
 
@@ -76,7 +77,7 @@ const Login = () => {
                     setTimeout(() => {
                         setError('')
 
-                    }, 3000);
+                    }, slowTimeout(3000));
                 }
                 else if (data.status == 'nopass') {
                     setDisabled(false)
@@ -114,7 +115,7 @@ const Login = () => {
                 setTimeout(() => {
                     setError('')
 
-                }, 3000);
+                }, slowTimeout(3000));
             })
 
     }

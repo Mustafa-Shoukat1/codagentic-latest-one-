@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { slowTimeout } from '../../../animationConfig';
 
 const EditF = ({ setCurrentindex, setError, error, fid }) => {
     const url = import.meta.env.VITE_SERVER;
@@ -24,7 +25,7 @@ const EditF = ({ setCurrentindex, setError, error, fid }) => {
             const res = await axios.post('https://api.cloudinary.com/v1_1/dxrfayus8/image/upload', formData);
             setImage(res.data.secure_url);
             setError('Image uploaded');
-            setTimeout(() => setError(''), 3000);
+            setTimeout(() => setError(''), slowTimeout(3000));
         } catch (err) {
             console.error('Image Upload Error', err);
             setError('Image upload failed');

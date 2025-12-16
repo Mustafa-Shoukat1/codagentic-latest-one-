@@ -2,6 +2,7 @@
 import React from 'react';
 import { Linkedin, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { slowDuration } from '../animationConfig';
 
 const Profilecard = ({ title, role, descrp, image, linkedin, github }) => {
   return (
@@ -10,14 +11,14 @@ const Profilecard = ({ title, role, descrp, image, linkedin, github }) => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ on: true, margin: "-100px" }}
-      transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ duration: slowDuration(0.7), ease: [0.23, 1, 0.32, 1] }}
     >
       <div className="p-8 text-center space-y-6">
         {/* Profile Image */}
         <motion.div
           className="relative mx-auto w-48 h-48"
           whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: slowDuration(0.4) }}
         >
           <img
             src={image || 'https://placehold.co/400x400?text=Founder'}
