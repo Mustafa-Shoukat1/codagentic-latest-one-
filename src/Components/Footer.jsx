@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
         <video
           autoPlay
-          preload="auto"
+          preload="none"
           loop
           muted
           playsInline

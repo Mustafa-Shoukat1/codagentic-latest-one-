@@ -157,7 +157,7 @@ const Welcome = ({ togglePlay, startAutoScroll }) => {
               loop
               muted
               playsInline
-              preload="auto"
+              preload="none"
               className="w-full h-full object-cover object-bottom"
               style={{ opacity: 0.9 }}
               onLoadedData={(e) => {

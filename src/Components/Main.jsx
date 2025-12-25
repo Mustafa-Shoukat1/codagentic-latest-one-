@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MoveRight, Lightbulb } from "lucide-react";
+import { MoveRight, Lightbulb, Volume2, VolumeX } from "lucide-react";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
 import CustomScrollbar from "./CustomScrollbar";
@@ -45,6 +45,7 @@ const Main = () => {
   const audioRef = useRef(new Audio(music));
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const contactRef = useRef(null);
@@ -280,6 +281,32 @@ const Main = () => {
       window.removeEventListener("welcome-completed", handleWelcomeComplete);
     };
   }, []);  
+  const toggleMute = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    
+    if (isMuted) {
+      // Unmute - resume playing if it was playing
+      audio.muted = false;
+      setIsMuted(false);
+      if (isPlaying) {
+        audio.play().catch(console.error);
+      }
+    } else {
+      // Mute - pause and mute
+      gsap.to(audio, {
+        volume: 0,
+        duration: 0.5,
+        onComplete: () => {
+          audio.pause();
+          audio.muted = true;
+          setIsMuted(true);
+          setIsPlaying(false);
+        },
+      });
+    }
+  };
+
   const togglePlay = () => {
     const audio = audioRef.current;
     if (!audio || showwell) return; // Don't allow manual toggle when Welcome is shown
@@ -389,7 +416,7 @@ const Main = () => {
                 autoPlay
                 muted
                 playsInline
-                preload="auto"
+                preload="none"
                 className="w-full h-full object-cover object-bottom"
               />
             </div>
@@ -476,6 +503,21 @@ const Main = () => {
                 title="Restart Auto-Scroll"
               >
                 <RotateCcw size={18} />
+              </motion.button>
+
+              {/* Mute/Unmute Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={toggleMute}
+                className={`size-12 rounded-full border flex items-center justify-center 
+                  transition-all duration-300 shadow-lg
+                  ${isMuted 
+                    ? "bg-red-500/30 border-red-500 text-red-500 hover:bg-red-500/40" 
+                    : "bg-black/30 backdrop-blur-md border-green text-green hover:bg-green/20"}`}
+                title={isMuted ? "Unmute Audio" : "Mute Audio"}
+              >
+                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
               </motion.button>
 
               <SoundWave isPlaying={isPlaying} togglePlay={togglePlay} />

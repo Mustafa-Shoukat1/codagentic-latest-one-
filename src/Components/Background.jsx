@@ -11,7 +11,8 @@ const Background = ({ children }) => {
 
   useEffect(() => {
     const createParticles = () => {
-      const totalParticles = 15;
+      // Reduced from 15 to 8 particles for faster startup and better performance
+      const totalParticles = 8;
       const container = containerRef.current;
 
       if (!container) return;
