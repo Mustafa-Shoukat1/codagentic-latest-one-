@@ -1,6 +1,7 @@
 // Centralized animation & scroll timing configuration
 // Adjust `SCALE` to make animations/scrolls slower (>1 slows down)
-export const SCALE = 1.6;
+// Changed from 1.6 to 1.0 for significantly faster startup and responsiveness
+export const SCALE = 1.0;
 
 // GSAP uses timeScale where <1 slows down. We set GSAP_TIME_SCALE = 1 / SCALE
 export const GSAP_TIME_SCALE = 1 / SCALE;
