@@ -4,7 +4,7 @@ import Main from './Components/Main'
 const Panel = lazy(() => import('./Components/Panel/Panel'))
 const Login = lazy(() => import('./Components/Login'))
 const BlogPost = lazy(() => import('./Components/Blog/blogPost'))
-import { Adminchk } from './Components/Protectedroutes'
+const Adminchk = lazy(() => import('./Components/Protectedroutes').then(m => ({ default: m.Adminchk })))
 // import { useLocation } from 'react-router';
 // import NProgress from 'nprogress';
 // import 'nprogress/nprogress.css';

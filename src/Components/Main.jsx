@@ -46,6 +46,8 @@ const Main = () => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const previousVolumeRef = useRef(0.3); // Store previous volume for restoration
+  const wasPlayingBeforeMuteRef = useRef(false); // Track if audio was playing before mute
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const contactRef = useRef(null);
@@ -286,14 +288,21 @@ const Main = () => {
     if (!audio) return;
     
     if (isMuted) {
-      // Unmute - resume playing if it was playing
+      // Unmute - restore previous volume and play state
       audio.muted = false;
+      audio.volume = previousVolumeRef.current;
       setIsMuted(false);
-      if (isPlaying) {
+      
+      // Resume playback if it was playing before mute
+      if (wasPlayingBeforeMuteRef.current) {
         audio.play().catch(console.error);
+        setIsPlaying(true);
       }
     } else {
-      // Mute - pause and mute
+      // Mute - save current state and fade out
+      wasPlayingBeforeMuteRef.current = isPlaying;
+      previousVolumeRef.current = audio.volume || 0.3;
+      
       gsap.to(audio, {
         volume: 0,
         duration: 0.5,
